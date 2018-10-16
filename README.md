@@ -1,6 +1,6 @@
 # ovirt-vm-backup
 
-This tool makes full online backup of every given VM. It uses also different configuration files, one global config for server wide configurations. And another one piped as argument for VM specific settings.
+This tool makes full online backup of every given VM. It uses different configuration files, one global config for server wide configurations. And another one piped as argument for VM specific settings.
 
 ## Requirements:
 + Python >= 3.5
@@ -23,13 +23,13 @@ This tool makes full online backup of every given VM. It uses also different con
 + chmod 600 /etc/ovirt-vm-backup/ovirt-vm-backup.conf
 
 ## Functionality
-The oVirt API works mostly [asynchronous](https://ovirt.org/blog/2017/05/higher-performance-for-python-sdk/), but this script runs most commands sequential. That means, that the run time is longer, because every operation waits for the previous one to be done. This is important, because we can not clone a VM from snapshot when the snapshot is not fully created before... At the moment only two functions a asynchronous. That is deleting old backups, the backup snapshot and the temporary VM.
+The oVirt API works mostly [asynchronous](https://ovirt.org/blog/2017/05/higher-performance-for-python-sdk/), but this script runs most commands sequential. That means, that the runtime is longer, because every operation waits for the previous one to be done. This is important, because we can not clone a VM from snapshot when the snapshot is not fully created before... At the moment only three functions a asynchronous. That is deleting old backups, the backup snapshot and the temporary VM.
 
 To backup VMs the script runs this commands in sequence:
 + check config integrity
 + check storage space and VM size
 + if there is enough space:
-    + check for old Backups, if thy are older then specified - delete them
+    + check for old Backups, if they are older then specified - delete them
     + create a snapshot
     + clone the snapshot to a temporary VM
     + delete the snapshot
